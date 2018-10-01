@@ -22,14 +22,17 @@ import com.google.cloud.storage.BlobInfo
 import com.google.cloud.storage.StorageOptions
 import java.net.URL
 import java.nio.channels.Channels
+import java.time.LocalDateTime
 
+
+private val refreshHeader = "x-refresh"
 
 /**
  * Function that does fetching of an IANA file.
  */
 fun fetchIana( ianaUrl: String, gcsName : String ) {
 
-    val bucket : String? = System.getenv( BUCKET_NAME_PROPERTY )
+    val bucket : String? = System.getProperty( BUCKET_NAME_PROPERTY )
 
     bucket?.let{
 
@@ -42,9 +45,17 @@ fun fetchIana( ianaUrl: String, gcsName : String ) {
             val writer = blob.writer()
             val os = Channels.newOutputStream( writer )
             url.openStream().copyTo( os )
+            blob.toBuilder().setMetadata( hashMapOf( refreshHeader to LocalDateTime.now().toString() ) ).build().update()
         } ?: run {
             storage.create(
-                    BlobInfo.newBuilder( bucket, gcsName ).build(),
+                    BlobInfo
+                            .newBuilder( bucket, gcsName )
+                            .setMetadata(
+                                    hashMapOf(
+                                            refreshHeader to LocalDateTime.now().toString() )
+                            )
+                            .setContentType( "application/json" )
+                            .build(),
                     url.openStream()
             )
         }
