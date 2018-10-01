@@ -16,6 +16,13 @@
  */
 package net.arin.bootstrap_fetcher
 
+import com.google.cloud.storage.Blob
+import com.google.cloud.storage.BlobId
+import com.google.cloud.storage.BlobInfo
+import com.google.cloud.storage.StorageOptions
+import java.net.URL
+import java.nio.channels.Channels
+
 
 /**
  * Function that does fetching of an IANA file.
@@ -24,4 +31,25 @@ fun fetchIana( ianaUrl: String, gcsName : String ) {
 
     val bucket : String? = System.getenv( BUCKET_NAME_PROPERTY )
 
+    bucket?.let{
+
+        val url = URL( ianaUrl )
+
+        val storage = StorageOptions.getDefaultInstance().service
+        val blobId = BlobId.of( bucket, gcsName )
+        val blob : Blob? = storage.get( blobId )
+        blob?.let {
+            val writer = blob.writer()
+            val os = Channels.newOutputStream( writer )
+            url.openStream().copyTo( os )
+        } ?: run {
+            storage.create(
+                    BlobInfo.newBuilder( bucket, gcsName ).build(),
+                    url.openStream()
+            )
+        }
+
+    } ?: run {
+        throw RuntimeException( "environment variable ${BUCKET_NAME_PROPERTY} not set" )
+    }
 }

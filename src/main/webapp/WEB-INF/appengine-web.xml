@@ -18,4 +18,5 @@ limitations under the License.
         <property name="rdap.bootfiles_bucket" value="iana-bootstrap-files-for-rdap-experimentation"/>
     </system-properties>
     <service>fetcher</service>
+    <url-stream-handler>urlfetch</url-stream-handler>
 </appengine-web-app>
