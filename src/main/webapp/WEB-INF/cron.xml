@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cronentries>
+    <cron>
+        <url>/_fetch_dns</url>
+        <target>fetcher</target>
+        <description>fetch IANA dns.json</description>
+        <schedule>every 24 hours</schedule>
+    </cron>
+    <cron>
+        <url>/_fetch_asn</url>
+        <target>fetcher</target>
+        <description>fetch IANA asn.json</description>
+        <schedule>every 24 hours</schedule>
+    </cron>
+    <cron>
+        <url>/_fetch_ipv4</url>
+        <target>fetcher</target>
+        <description>fetch IANA ipv4.json</description>
+        <schedule>every 24 hours</schedule>
+    </cron>
+    <cron>
+        <url>/_fetch_ipv6</url>
+        <target>fetcher</target>
+        <description>fetch IANA ipv6.json</description>
+        <schedule>every 24 hours</schedule>
+    </cron>
+</cronentries>
