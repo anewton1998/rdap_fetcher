@@ -1,5 +1,6 @@
 package net.arin.bootstrap_fetcher
 
+import java.lang.RuntimeException
 import javax.servlet.annotation.WebServlet
 import javax.servlet.http.HttpServlet
 import javax.servlet.http.HttpServletRequest
@@ -12,6 +13,9 @@ class HelloWorld : HttpServlet() {
         req.parameterMap.forEach{ param ->
             param.value.forEach { pValue ->
                 res.writer.write( "\nrequest parameter ${param.key} = ${pValue}")
+                if( pValue.equals( "blowedUp" ) ) {
+                    throw RuntimeException( "this blowed up real goode!" )
+                }
             }
         }
     }
