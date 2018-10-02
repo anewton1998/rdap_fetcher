@@ -9,5 +9,10 @@ import javax.servlet.http.HttpServletResponse
 class HelloWorld : HttpServlet() {
     override fun doGet(req: HttpServletRequest, res: HttpServletResponse) {
         res.writer.write("Hello, World! I am a Servlet 3.1 running on Java8 App Engine Standard, and written in Kotlin...")
+        req.parameterMap.forEach{ param ->
+            param.value.forEach { pValue ->
+                res.writer.write( "\nrequest parameter ${param.key} = ${pValue}")
+            }
+        }
     }
 }
