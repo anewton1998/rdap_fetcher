@@ -16,6 +16,7 @@
  */
 package net.arin.bootstrap_fetcher
 
+import com.google.auth.appengine.AppEngineCredentials
 import com.google.cloud.storage.StorageOptions
 import java.net.URL
 
@@ -33,7 +34,8 @@ fun fetchIana( ianaUrl: String, gcsName : String ) {
 
         val url = URL( ianaUrl )
 
-        val storage = StorageOptions.getDefaultInstance().service
+        val credentials = AppEngineCredentials.getApplicationDefault()
+        val storage = StorageOptions.newBuilder().setCredentials(credentials).build().service
         val bucket = storage.get( bucketName )
         bucket.create( gcsName, url.openStream(), "application/json" )
 
