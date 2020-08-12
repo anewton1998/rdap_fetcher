@@ -41,7 +41,7 @@ dependencies {
     compile "com.google.cloud:google-cloud-storage:1.59.0"
     compile group: 'com.googlecode.java-ipv6', name: 'java-ipv6', version:'0.13'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version:'2.2.0'
-    compile group: 'net.ripe.ipresource', name: 'ipresource', version:'1.46'
+    compile group: 'net.ripe.ipresource', name: 'ipresource', version:'1.47'
 
     testCompile 'junit:junit:4.12'
     testCompile 'com.google.truth:truth:0.33'
