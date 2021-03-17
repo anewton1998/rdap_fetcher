@@ -37,7 +37,7 @@ dependencies {
     compile 'com.google.appengine:appengine-api-1.0-sdk:+'  // Latest App Engine Api's
     providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
 
-    compile "com.google.auth:google-auth-library-appengine:0.12.0"
+    compile "com.google.auth:google-auth-library-appengine:0.25.0"
     compile "com.google.cloud:google-cloud-storage:1.59.0"
     compile group: 'com.googlecode.java-ipv6', name: 'java-ipv6', version:'0.13'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version:'2.2.0'
